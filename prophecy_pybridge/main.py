@@ -1,21 +1,22 @@
 """Main module."""
+import shutil
 from pathlib import Path
-from typing import Union
 
 from fastapi import FastAPI, File, UploadFile
-import shutil
 
 app = FastAPI()
-
 
 @app.get("/hello")
 def say_hello():
     return {"Hello": "World"}
 
+@app.get("/spec")
+def openapi_spec():
+    return {"info": app.openapi_schema}
 
 @app.post('/upload')
 async def upload_file(file: UploadFile = File(...), upload_folder: str = None):
-    print(file,upload_folder)
+    print(file, upload_folder)
     if upload_folder:
         upload_folder = Path(upload_folder)
         file_path = upload_folder / file.filename

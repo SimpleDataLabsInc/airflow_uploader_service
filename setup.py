@@ -12,21 +12,12 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [ "fastapi==0.104.1", "python-multipart", "uvicorn[standard]"]
 
-test_requirements = ['pytest>=3', ]
+test_requirements = ['pytest>=3', "httpx"]
 
 setup(
     author="Ashish Patel",
     author_email='ashish@prophecy.io',
     python_requires='>=3.6',
-    classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-    ],
     description="Python Boilerplate contains all the boilerplate you need to create a Python package.",
     install_requires=requirements,
     long_description=readme + '\n\n' + history,
