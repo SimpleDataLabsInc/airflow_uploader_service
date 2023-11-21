@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ ]
+requirements = [ "fastapi==0.104.1", "python-multipart", "uvicorn[standard]"]
 
 test_requirements = ['pytest>=3', ]
 
