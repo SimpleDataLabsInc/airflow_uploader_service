@@ -2,18 +2,20 @@
 
 from fastapi import FastAPI, File, UploadFile
 from prophecy_pybridge.controller.file_controller import FileController
-
+from fastapi.responses import JSONResponse
 app = FastAPI()
 
 
 @app.get("/hello")
-def say_hello():
-    return {"Hello": "World"}
-
+def say_hello(name: str = "Prophecy"):
+    return JSONResponse(
+        content={"message": f"Hello {name}!"})
 
 @app.get("/spec")
 def openapi_spec():
-    return {"info": app.openapi_schema}
+    return JSONResponse(
+        content= {"info": app.openapi_schema}
+    )
 
 
 @app.post("/upload")
