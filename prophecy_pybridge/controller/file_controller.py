@@ -18,7 +18,7 @@ class FileController(object):
                     return JSONResponse(
                         content={
                             "filename": file.filename,
-                            "file_path": str(file_path)
+                            "file_path": str(destination_dir)
                         })
                 except OSError as e:
                     print(f"Error uploading File: {file.filename}\n {e}")

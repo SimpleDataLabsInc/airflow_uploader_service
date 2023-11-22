@@ -20,14 +20,14 @@ def openapi_spec():
 
 @app.post("/upload")
 def upload_file(file: UploadFile = File(...), destination_dir: str = None):
-    FileController.upload_file(file, destination_dir)
+    return FileController.upload_file(file, destination_dir)
 
 
 @app.get("/delete")
 def delete_file(file_path: str):
-    FileController.delete_file(file_path)
+    return FileController.delete_file(file_path)
 
 
 @app.get("/deleteDir")
 async def delete_directory(directory_path: str):
-    FileController.delete_directory(directory_path)
+    return FileController.delete_directory(directory_path)

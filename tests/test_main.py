@@ -49,5 +49,5 @@ def test_upload_file():
         assert response.status_code == 200
         # Assert the response contains the expected data
         data = response.json()
-        assert data["filename"] == "test_file.txt"
-        assert "uploads" in data["file_path"]
+        assert data["filename"] == "test.txt"
+        assert output_dir in data["file_path"]
