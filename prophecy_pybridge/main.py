@@ -17,16 +17,16 @@ def openapi_spec():
         content= {"info": app.openapi_schema}
     )
 
-@app.post("/upload")
+@app.post("/upload_file")
 def upload_file(file: UploadFile = File(...), destination_dir: str = None):
     return FileController.upload_file(file, destination_dir)
 
 
-@app.get("/delete")
+@app.get("/delete_file")
 def delete_file(file_path: str):
     return FileController.delete_file(file_path)
 
 
-@app.get("/deleteDir")
+@app.get("/delete_directory")
 async def delete_directory(directory_path: str):
     return FileController.delete_directory(directory_path)
