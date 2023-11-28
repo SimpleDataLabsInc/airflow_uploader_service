@@ -17,7 +17,6 @@ def openapi_spec():
         content= {"info": app.openapi_schema}
     )
 
-
 @app.post("/upload")
 def upload_file(file: UploadFile = File(...), destination_dir: str = None):
     return FileController.upload_file(file, destination_dir)
