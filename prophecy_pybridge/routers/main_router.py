@@ -16,5 +16,4 @@ def say_hello(name: str = "Prophecy") -> JSONResponse:
     :param name: (str) The name to be included in the greeting message. Default is "Prophecy".
     :return: (JSONResponse) A JSON response containing the greeting message.
     """
-    return JSONResponse(
-        content={"message": f"Hello {name}!"})
+    return JSONResponse(content={"message": f"Hello {name}!"})

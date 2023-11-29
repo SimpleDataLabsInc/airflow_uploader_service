@@ -10,7 +10,9 @@ router = APIRouter(prefix="/file")
 
 # LOCAL FILE ROUTES
 @router.post("/upload")
-def upload_file(file: UploadFile = File(...), destination_dir: str = None) -> JSONResponse:
+def upload_file(
+    file: UploadFile = File(...), destination_dir: str = None
+) -> JSONResponse:
     return FileController.upload_file(file, destination_dir)
 
 

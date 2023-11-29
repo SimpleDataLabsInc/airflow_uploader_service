@@ -9,7 +9,7 @@ app = FastAPI(
     description="Prophecy Bridge API",
     version="1.0.0",
 )
-API_PREFIX = '/api/v1'
+API_PREFIX = "/api/v1"
 
 # Include all the routers
 for route in routers:

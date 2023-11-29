@@ -17,15 +17,15 @@ output_dir = current_file_dir + "/resources/output"
 
 
 def test_hello():
-    response = client.get(API_PREFIX + '/hello')
+    response = client.get(API_PREFIX + "/hello")
     assert response.status_code == 200
-    assert response.json() == {'message': 'Hello Prophecy!'}
+    assert response.json() == {"message": "Hello Prophecy!"}
 
 
 def test_name():
-    response = client.get(API_PREFIX + '/hello', params={"name": "Ashish"})
+    response = client.get(API_PREFIX + "/hello", params={"name": "Ashish"})
     assert response.status_code == 200
-    assert response.json() == {'message': 'Hello Ashish!'}
+    assert response.json() == {"message": "Hello Ashish!"}
 
 
 def test_upload_file():
@@ -38,10 +38,11 @@ def test_upload_file():
 
     with open(input_file_path, "rb") as file:
         file_content = file.read()
-        response = client.post(API_PREFIX + "/file/upload",
-                               params={"destination_dir": output_dir},
-                               files={"file": (file_name, file_content)}
-                               )
+        response = client.post(
+            API_PREFIX + "/file/upload",
+            params={"destination_dir": output_dir},
+            files={"file": (file_name, file_content)},
+        )
         # print(response)
         assert response.status_code == 200
         data = response.json()
@@ -56,9 +57,10 @@ def test_delete_file():
     shutil.copy(input_file_path, output_file_path)
 
     assert os.path.exists(output_file_path)
-    response = client.get(API_PREFIX + "/file/delete",
-                          params={"file_path": output_file_path},
-                          )
+    response = client.get(
+        API_PREFIX + "/file/delete",
+        params={"file_path": output_file_path},
+    )
     assert not os.path.exists(output_file_path)
 
     print(response)
@@ -72,9 +74,10 @@ def test_delete_directory():
     output_test_dir = f"{output_dir}/delete_dir"
     shutil.copytree(input_dir, output_test_dir, dirs_exist_ok=True)
     assert os.path.exists(output_test_dir)
-    response = client.get(API_PREFIX + "/file/delete_directory",
-                          params={"directory_path": output_test_dir},
-                          )
+    response = client.get(
+        API_PREFIX + "/file/delete_directory",
+        params={"directory_path": output_test_dir},
+    )
     assert not os.path.exists(output_test_dir)
     print(response)
     assert response.status_code == 200
