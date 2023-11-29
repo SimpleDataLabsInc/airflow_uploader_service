@@ -50,13 +50,11 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/black: ## check style with black
-	black --check prophecy_pybridge tests
-
-lint/fix:
+lint-fix:
 	black prophecy_pybridge tests
 
-lint: lint/black ## check style
+lint:
+	black --check prophecy_pybridge tests ## check style
 
 test: ## run tests quickly with the default Python
 	pytest
