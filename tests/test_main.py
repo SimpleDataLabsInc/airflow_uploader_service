@@ -76,8 +76,8 @@ def test_delete_directory():
                           params={"directory_path": output_test_dir},
                           )
     assert not os.path.exists(output_test_dir)
-    print(response)
+    # print(response)
     assert response.status_code == 200
     data = response.json()
     assert "deleted recursively successfully" in data["message"]
-    print(data)
+    # print(data)
