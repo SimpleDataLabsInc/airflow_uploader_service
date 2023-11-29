@@ -2,14 +2,15 @@
 
 from fastapi import FastAPI
 
-from prophecy_pybridge.routers import file_router, hdfs_router
+from prophecy_pybridge.routers import routers
 
 app = FastAPI(
     title="Prophecy PyBridge",
     description="Prophecy Bridge API",
     version="1.0.0",
 )
+API_PREFIX = '/api/v1'
 
-# Include the routers
-app.include_router(file_router.router)
-app.include_router(hdfs_router.router)
+# Include all the routers
+for route in routers:
+    app.include_router(router=route, prefix=API_PREFIX)

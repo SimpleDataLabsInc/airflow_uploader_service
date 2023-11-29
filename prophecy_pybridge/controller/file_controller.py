@@ -8,7 +8,15 @@ from fastapi.responses import JSONResponse
 
 class FileController(object):
     @staticmethod
-    def upload_file(file: UploadFile = File(...), destination_dir: str = None):
+    def upload_file(file: UploadFile = File(...), destination_dir: str = None) -> JSONResponse:
+        """
+        Uploads a file to a specified destination directory.
+
+        :param file: The file to be uploaded. (type: UploadFile)
+        :param destination_dir: The destination directory where the file should be uploaded. (type: str)
+        :return: A JSONResponse object containing the filename and file path if the upload is successful. If there is an error, a JSONResponse object with an error message is returned. (type
+        *: JSONResponse)
+        """
         print(file, destination_dir)
         if destination_dir:
             destination_dir = Path(destination_dir)
@@ -42,7 +50,15 @@ class FileController(object):
                 })
 
     @staticmethod
-    def delete_file(file_path: str):
+    def delete_file(file_path: str) -> JSONResponse:
+        """
+        :param file_path: The path of the file to be deleted.
+        :return: JSONResponse object.
+
+        This method is a static method that deletes the file specified by the given file_path. It uses the os.remove() function to remove the file. If the file is successfully deleted, it returns
+        * a JSONResponse object with a success message. If the file is not found, a JSONResponse object with an error message indicating that the file was not found is returned. If there is
+        * an OSError while deleting the file, a JSONResponse object with an error message and details of the OSError is returned.
+        """
         try:
             os.remove(file_path)
             return JSONResponse(
@@ -57,7 +73,13 @@ class FileController(object):
                                          })
 
     @staticmethod
-    def delete_directory(directory_path: str):
+    def delete_directory(directory_path: str) -> JSONResponse:
+        """
+        Delete a directory and its contents recursively.
+
+        :param directory_path: The path of the directory to delete.
+        :return: A JSONResponse object containing a success message or an error message.
+        """
         try:
             shutil.rmtree(directory_path)
             return JSONResponse(
