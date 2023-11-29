@@ -76,14 +76,11 @@ Ready to contribute? Here's how to set up `prophecy_pybridge` for local developm
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass black linting and the
+   tests ::
 
-    $ flake8 prophecy_pybridge tests
+    $ black prophecy_pybridge tests
     $ python setup.py test or pytest
-    $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
