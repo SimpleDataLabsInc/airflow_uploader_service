@@ -6,7 +6,7 @@ from fastapi import UploadFile, File
 from fastapi.responses import JSONResponse
 
 
-class FileController(object):
+class HdfsController(object):
     @staticmethod
     def upload_file(file: UploadFile = File(...), destination_dir: str = None):
         print(file, destination_dir)
