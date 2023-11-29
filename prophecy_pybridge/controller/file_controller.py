@@ -20,8 +20,8 @@ class FileController(object):
         print(file, destination_dir)
         if destination_dir:
             destination_dir = Path(destination_dir)
-            # create destination directory recursively, error if already file exists
-            destination_dir.mkdir(parents=True, exist_ok=False)
+            # create destination directory recursively, it's Okay if already file exists
+            destination_dir.mkdir(parents=True, exist_ok=True)
             file_path = destination_dir / file.filename
             with file_path.open("wb") as buffer:
                 try:

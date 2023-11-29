@@ -6,7 +6,7 @@ import os
 import shutil
 
 from fastapi.testclient import TestClient
-from prophecy_pybridge.main import app
+from prophecy_pybridge.main import app, API_PREFIX
 
 client = TestClient(app)
 current_file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,13 +17,13 @@ output_dir = current_file_dir + "/resources/output"
 
 
 def test_hello():
-    response = client.get('/hello')
+    response = client.get(API_PREFIX + '/hello')
     assert response.status_code == 200
     assert response.json() == {'message': 'Hello Prophecy!'}
 
 
 def test_name():
-    response = client.get('/hello', params={"name": "Ashish"})
+    response = client.get(API_PREFIX + '/hello', params={"name": "Ashish"})
     assert response.status_code == 200
     assert response.json() == {'message': 'Hello Ashish!'}
 
@@ -38,7 +38,7 @@ def test_upload_file():
 
     with open(input_file_path, "rb") as file:
         file_content = file.read()
-        response = client.post("/upload_file",
+        response = client.post(API_PREFIX + "/file/upload",
                                params={"destination_dir": output_dir},
                                files={"file": (file_name, file_content)}
                                )
@@ -56,28 +56,28 @@ def test_delete_file():
     shutil.copy(input_file_path, output_file_path)
 
     assert os.path.exists(output_file_path)
-    response = client.get("/delete_file",
+    response = client.get(API_PREFIX + "/file/delete",
                           params={"file_path": output_file_path},
                           )
     assert not os.path.exists(output_file_path)
 
-    # print(response)
+    print(response)
     assert response.status_code == 200
     data = response.json()
     assert "deleted successfully" in data["message"]
-    # print(data)
+    print(data)
 
 
 def test_delete_directory():
     output_test_dir = f"{output_dir}/delete_dir"
     shutil.copytree(input_dir, output_test_dir, dirs_exist_ok=True)
     assert os.path.exists(output_test_dir)
-    response = client.get("/delete_directory",
+    response = client.get(API_PREFIX + "/file/delete_directory",
                           params={"directory_path": output_test_dir},
                           )
     assert not os.path.exists(output_test_dir)
-    # print(response)
+    print(response)
     assert response.status_code == 200
     data = response.json()
     assert "deleted recursively successfully" in data["message"]
-    # print(data)
+    print(data)
