@@ -23,6 +23,8 @@ def test_upload_delete():
     if 'ashishpatel' in os.environ['HOME']:
         t_upload_file()
         t_delete_file()
+    else:
+        print("SKIP: hadoop tests.")
 
 
 def t_upload_file():
