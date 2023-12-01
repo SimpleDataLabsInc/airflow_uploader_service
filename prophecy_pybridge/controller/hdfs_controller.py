@@ -1,49 +1,57 @@
 import os
 import shutil
 from pathlib import Path
-
+import tempfile
+import os
 from fastapi import UploadFile, File
 from fastapi.responses import JSONResponse
+from prophecy_pybridge.controller.file_controller import FileController
+import subprocess
 
 
 class HdfsController(object):
+
+    @staticmethod
+    def _run_cmd(bash_command: list[str]) -> object:
+        result = subprocess.run(bash_command, shell=True, text=True, capture_output=True)
+        return result
+
     @staticmethod
     def upload_file(file: UploadFile = File(...), destination_dir: str = None):
-        print(file, destination_dir)
-        if destination_dir:
-            destination_dir = Path(destination_dir)
-            # create destination directory recursively, error if already file exists
-            destination_dir.mkdir(parents=True, exist_ok=False)
-            file_path = destination_dir / file.filename
-            with file_path.open("wb") as buffer:
-                try:
-                    shutil.copyfileobj(file.file, buffer)
-                    return JSONResponse(
-                        content={
-                            "filename": file.filename,
-                            "file_path": str(destination_dir),
-                        }
-                    )
-                except OSError as e:
-                    print(f"Error uploading File: {file.filename}\n {e}")
-                    return JSONResponse(
-                        status_code=500,
-                        content={
-                            "error": f"Error uploading file: {file.filename}\n {e}"
-                        },
-                    )
-            return JSONResponse(
-                status_code=500,
-                content={
-                    "status": "ERROR",
-                    "cause": "Error reading file buffer for upload",
-                },
-            )
-        else:
-            return JSONResponse(
-                status_code=500,
-                content={"status": "ERROR", "cause": "Please provide a folder path"},
-            )
+        """
+        Uploads a file to the specified destination directory in HDFS.
+
+        :param file: The file to be uploaded.
+        :param destination_dir: The destination directory in HDFS.
+        :return: A JSON response indicating the status of the upload process.
+        """
+        with tempfile.TemporaryDirectory() as temp_dir:
+            print(f"Temporary directory created: {temp_dir}")
+
+            # upload file to tmp directory
+            file_upload_result = FileController.upload_file(file, temp_dir)
+            if file_upload_result.status_code != 200:
+                return file_upload_result
+
+            # now, we will move run hdfs command
+            temp_file_path = os.path.join(temp_dir, file.filename)
+            result = HdfsController._run_cmd(f"hdfs dfs -copyFromLocal {temp_file_path} {destination_dir}")
+            if result.returncode == 0:
+                print(f"Command executed successfully: {result}")
+
+                return JSONResponse(
+                    status_code=200, content={
+                        "message": f"file {file.filename} copied to hdfs location {destination_dir} successfully!"
+                    }
+                )
+            else:
+                print(f"Command failed with return code: \n{result}\n")
+                return JSONResponse(
+                    status_code=500, content={
+                        "message": f"Error copying {file.filename} to hdfs location {destination_dir}",
+                        "details:": result.stderr
+                    }
+                )
 
     @staticmethod
     def delete_file(file_path: str):
