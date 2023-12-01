@@ -41,7 +41,7 @@ class HdfsController(object):
 
                 return JSONResponse(
                     status_code=200, content={
-                        "message": f"file {file.filename} copied to hdfs location {destination_dir} successfully!",
+                        "message": f"file '{file.filename}' copied to hdfs location '{destination_dir}' successfully!",
                         "details": result.stdout
                     }
                 )
@@ -49,7 +49,7 @@ class HdfsController(object):
                 print(f"Command failed with return code: \n{result}\n")
                 return JSONResponse(
                     status_code=500, content={
-                        "message": f"Error copying {file.filename} to hdfs location {destination_dir}",
+                        "message": f"Error copying '{file.filename}' to hdfs location {destination_dir}",
                         "details:": result.stderr
                     }
                 )
@@ -62,7 +62,7 @@ class HdfsController(object):
             print(f"file {file_path} has been removed successfully\n {result}\n")
             return JSONResponse(
                 status_code=200, content={
-                    "message": f"file {file_path} has been removed successfully: {result}",
+                    "message": f"file '{file_path}' has been removed successfully: {result}",
                     "details": result.stdout
                 }
             )
