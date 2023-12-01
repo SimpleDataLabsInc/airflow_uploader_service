@@ -19,13 +19,13 @@ test_hdfs_file_path = output_hdfs_dir + "/" + file_name
 
 # only run in local can't run this on CI/CD
 
-# def test_upload_delete():
-#     upload_file()
-#     delete_file()
+def test_upload_delete():
+    if 'ashishpatel' in os.environ['HOME']:
+        t_upload_file()
+        t_delete_file()
 
 
-
-def upload_file():
+def t_upload_file():
     print("\n\nTESTING UPLOAD FILE")
     # first remove and then try this
     with open(input_file_path, "rb") as file:
@@ -42,7 +42,7 @@ def upload_file():
         assert "test.txt" in data["message"]
 
 
-def delete_file():
+def t_delete_file():
     print("\n\nTESTING DELETE FILE")
     response = client.get(
         API_PREFIX + "/hdfs/delete",

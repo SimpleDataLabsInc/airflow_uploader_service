@@ -10,7 +10,6 @@ import subprocess
 
 
 class HdfsController(object):
-
     @staticmethod
     def _run_cmd(bash_command: list[str]) -> object:
         result = subprocess.run(bash_command, shell=True, text=True, capture_output=True)
