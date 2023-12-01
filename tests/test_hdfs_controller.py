@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 """Tests for `prophecy_pybridge` package."""
+import json
 import os
-import shutil
 
 from fastapi.testclient import TestClient
+
 from prophecy_pybridge.main import app, API_PREFIX
 
 client = TestClient(app)
@@ -13,10 +14,19 @@ file_name = "test.txt"
 input_dir = current_file_dir + "/resources/input"
 input_file_path = input_dir + f"/{file_name}"
 output_hdfs_dir = "/pateash"
+test_hdfs_file_path = output_hdfs_dir + "/" + file_name
 
 
 # only run in local can't run this on CI/CD
-def test_upload_file():
+
+# def test_upload_delete():
+#     upload_file()
+#     delete_file()
+
+
+
+def upload_file():
+    print("\n\nTESTING UPLOAD FILE")
     # first remove and then try this
     with open(input_file_path, "rb") as file:
         file_content = file.read()
@@ -26,32 +36,23 @@ def test_upload_file():
             files={"file": (file_name, file_content)},
         )
         data = response.json()
-        print(data)
+        print(json.dumps(data, indent=2))
 
         assert response.status_code == 200
-        assert  "test.txt" in data["message"]
+        assert "test.txt" in data["message"]
 
-#
-# def test_delete_file():
-#     # copy test file from input to output and then delete
-#     # and check its existence
-#     output_file_path = f"{output_dir}/delete_{file_name}"
-#     shutil.copy(input_file_path, output_file_path)
-#
-#     assert os.path.exists(output_file_path)
-#     response = client.get(
-#         API_PREFIX + "/hdfs/delete",
-#         params={"file_path": output_file_path},
-#     )
-#     assert not os.path.exists(output_file_path)
-#
-#     print(response)
-#     assert response.status_code == 200
-#     data = response.json()
-#     assert "deleted successfully" in data["message"]
-#     print(data)
-#
-#
+
+def delete_file():
+    print("\n\nTESTING DELETE FILE")
+    response = client.get(
+        API_PREFIX + "/hdfs/delete",
+        params={"file_path": test_hdfs_file_path},
+    )
+    data = response.json()
+    print(json.dumps(data, indent=2))
+    assert response.status_code == 200
+    assert "removed successfully" in data["message"]
+
 # def test_delete_directory():
 #     output_test_dir = f"{output_dir}/delete_dir"
 #     shutil.copytree(input_dir, output_test_dir, dirs_exist_ok=True)

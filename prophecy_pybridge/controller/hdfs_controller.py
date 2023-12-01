@@ -41,7 +41,8 @@ class HdfsController(object):
 
                 return JSONResponse(
                     status_code=200, content={
-                        "message": f"file {file.filename} copied to hdfs location {destination_dir} successfully!"
+                        "message": f"file {file.filename} copied to hdfs location {destination_dir} successfully!",
+                        "details": result.stdout
                     }
                 )
             else:
@@ -55,22 +56,23 @@ class HdfsController(object):
 
     @staticmethod
     def delete_file(file_path: str):
-        try:
-            os.remove(file_path)
+        result = HdfsController._run_cmd(f"hdfs dfs -rm {file_path}")
+
+        if result.returncode == 0:
+            print(f"file {file_path} has been removed successfully\n {result}\n")
             return JSONResponse(
-                content={"message": f"File {file_path} deleted successfully."}
+                status_code=200, content={
+                    "message": f"file {file_path} has been removed successfully: {result}",
+                    "details": result.stdout
+                }
             )
-        except FileNotFoundError:
+        else:
+            print(f"Error deleting hdfs file \n{result}\n")
             return JSONResponse(
-                status_code=500, content={"error": f"File {file_path} not found."}
-            )
-        except OSError as e:
-            return JSONResponse(
-                status_code=500,
-                content={
-                    "error": f"Error deleting file {file_path}",
-                    "details": f" {e}",
-                },
+                status_code=500, content={
+                    "message": f"Error deleting hdfs file {file_path}",
+                    "details:": result.stderr
+                }
             )
 
     @staticmethod
