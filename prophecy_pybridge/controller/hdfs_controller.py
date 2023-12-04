@@ -11,7 +11,7 @@ import subprocess
 
 class HdfsController(object):
     @staticmethod
-    def _run_cmd(bash_command: list[str]) -> object:
+    def run_cmd(bash_command: list[str]) -> object:
         result = subprocess.run(bash_command, shell=True, text=True, capture_output=True)
         return result
 
@@ -34,7 +34,7 @@ class HdfsController(object):
 
             # now, we will move run hdfs command
             temp_file_path = os.path.join(temp_dir, file.filename)
-            result = HdfsController._run_cmd(f"hdfs dfs -copyFromLocal {temp_file_path} {destination_dir}")
+            result = HdfsController.run_cmd(f"hdfs dfs -copyFromLocal {temp_file_path} {destination_dir}")
             if result.returncode == 0:
                 print(f"Command executed successfully: {result}")
 
@@ -55,7 +55,12 @@ class HdfsController(object):
 
     @staticmethod
     def delete_file(file_path: str):
-        result = HdfsController._run_cmd(f"hdfs dfs -rm {file_path}")
+        """
+        :param file_path: The path of the file to be deleted from the HDFS.
+        :return: A JSON response containing the status of the deletion operation. If the file is deleted successfully, the response will have a status code of 200 and a message indicating that the file has been removed successfully. If there is an error deleting the file, the response will have a status code of 500 and an error message explaining the issue.
+
+        """
+        result = HdfsController.run_cmd(f"hdfs dfs -rm {file_path}")
 
         if result.returncode == 0:
             print(f"file {file_path} has been removed successfully\n {result}\n")
@@ -76,19 +81,20 @@ class HdfsController(object):
 
     @staticmethod
     def delete_directory(directory_path: str):
-        try:
-            shutil.rmtree(directory_path)
+        result = HdfsController.run_cmd(f"hdfs dfs -rm -r {directory_path}")
+        if result.returncode == 0:
+            print(f"Directory {directory_path} has been recursively removed\n {result}\n")
             return JSONResponse(
-                content={
-                    "message": f"File {directory_path} deleted recursively successfully."
+                status_code=200, content={
+                    "message": f"Directory '{directory_path}' has been recursively removed",
+                    "details": result.stdout
                 }
             )
-        except OSError as e:
-            print(f"Error deleting directory {directory_path}: {e}")
+        else:
+            print(f"Error deleting hdfs directory \n{result}\n")
             return JSONResponse(
-                status_code=500,
-                content={
-                    "error": f"Error deleting directory {directory_path}",
-                    "details": f" {e}",
-                },
+                status_code=500, content={
+                    "message": f"Error deleting hdfs directory {directory_path}",
+                    "details:": result.stderr
+                }
             )
