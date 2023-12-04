@@ -1,8 +1,7 @@
-import binascii
+import base64
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
-import base64
 
 BASIC_AUTH_CREDS = {"username": "prophecy", "password": "Prophecy@123"}
 
@@ -30,9 +29,8 @@ def check_permission(method, api, auth):
             and password == BASIC_AUTH_CREDS["password"]
         ):
             return True
-    except (binascii.Error, ValueError):
+    except ValueError:
         return False
-
 
 
 async def check_basic_authentication(request: Request, call_next):
@@ -48,5 +46,7 @@ async def check_basic_authentication(request: Request, call_next):
     """
     auth = request.headers.get("Authorization")
     if not check_permission(request.method, request.url.path, auth):
-        return JSONResponse(None, 401, {"WWW-Authenticate": "Basic"})
+        return JSONResponse({"message": "Access Denied"}
+                            , 401, {"WWW-Authenticate": "Basic"}
+                            )
     return await call_next(request)
