@@ -46,7 +46,7 @@ async def check_basic_authentication(request: Request, call_next):
     """
     auth = request.headers.get("Authorization")
     if not check_permission(request.method, request.url.path, auth):
-        return JSONResponse({"message": "Access Denied"}
-                            , 401, {"WWW-Authenticate": "Basic"}
-                            )
+        return JSONResponse(
+            {"message": "Access Denied"}, 401, {"WWW-Authenticate": "Basic"}
+        )
     return await call_next(request)
