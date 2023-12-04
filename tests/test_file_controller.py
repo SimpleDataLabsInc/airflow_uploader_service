@@ -62,7 +62,7 @@ def test_delete_file():
 
 def test_delete_directory():
     output_test_dir = f"{output_dir}/delete_dir"
-    shutil.copytree(input_dir, output_test_dir, dirs_exist_ok=True)
+    shutil.copytree(input_dir, output_test_dir)
     assert os.path.exists(output_test_dir)
     response = client.get(
         API_PREFIX + "/file/delete_directory",

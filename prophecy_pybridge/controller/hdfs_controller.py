@@ -3,6 +3,8 @@ import shutil
 from pathlib import Path
 import tempfile
 import os
+from typing import List
+
 from fastapi import UploadFile, File
 from fastapi.responses import JSONResponse
 from prophecy_pybridge.controller.file_controller import FileController
@@ -11,7 +13,7 @@ import subprocess
 
 class HdfsController(object):
     @staticmethod
-    def run_cmd(bash_command: list[str]):
+    def run_cmd(bash_command: List[str]):
         result = subprocess.run(
             bash_command, shell=True, text=True, capture_output=True
         )
