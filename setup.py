@@ -14,7 +14,7 @@ test_requirements = ['pytest', "httpx", "black"]
 
 setup(
     author="Ashish Patel",
-    version="1.0.0",
+    version=API_VERSION,
     author_email='ashish@prophecy.io',
     python_requires='>=3.7',
     description="Python Boilerplate contains all the boilerplate you need to create a Python package.",
