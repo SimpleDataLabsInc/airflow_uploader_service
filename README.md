@@ -1,6 +1,8 @@
 # prophecy_pybridge
+[![Build CI](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml/badge.svg)](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml)
 
 * Run with reload option (dev)
+
 ```shell
 make dev
 ```
