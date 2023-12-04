@@ -6,9 +6,8 @@ router = APIRouter(prefix="/hdfs")
 from fastapi import File, UploadFile
 
 
-### HDFS FILE ROUTES
-# Note - assumption is that we will be able to run hdfs commands on the node, as this service will be running on edge node
-# if needed there is a way to authenticate and do this as well using python hdfs sdk
+# ## HDFS FILE ROUTES Note - assumption is that we will be able to run hdfs commands on the node, as this service
+# will be running on edge node if needed there is a way to authenticate and do this as well using python hdfs sdk
 
 
 @router.post("/upload")
