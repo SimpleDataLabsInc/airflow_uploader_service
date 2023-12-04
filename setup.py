@@ -4,11 +4,8 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
-
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
 
 requirements = [ "fastapi", "python-multipart", "uvicorn[standard]"]
 
@@ -20,7 +17,7 @@ setup(
     python_requires='>=3.6',
     description="Python Boilerplate contains all the boilerplate you need to create a Python package.",
     install_requires=requirements,
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     include_package_data=True,
     keywords='prophecy_pybridge',
     name='prophecy_pybridge',
