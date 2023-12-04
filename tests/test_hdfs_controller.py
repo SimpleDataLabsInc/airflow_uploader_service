@@ -21,8 +21,9 @@ test_hdfs_file_path = output_hdfs_dir + "/" + file_name
 
 # only run in local can't run this on CI/CD, as we don't have hadoop/hdfs installed there.
 
+
 def test_hdfs_all():
-    if 'ashishpatel' in os.environ['HOME']:
+    if "ashishpatel" in os.environ["HOME"]:
         # t_upload_file()
         # t_delete_file()
         t_delete_dir()
@@ -39,7 +40,7 @@ def t_upload_file():
             API_PREFIX + "/hdfs/upload",
             params={"destination_dir": output_hdfs_dir},
             files={"file": (file_name, file_content)},
-            headers=test_headers
+            headers=test_headers,
         )
         data = response.json()
         print(json.dumps(data, indent=2))
@@ -53,7 +54,7 @@ def t_delete_file():
     response = client.get(
         API_PREFIX + "/hdfs/delete",
         params={"file_path": test_hdfs_file_path},
-        headers=test_headers
+        headers=test_headers,
     )
     data = response.json()
     print(json.dumps(data, indent=2))
@@ -68,7 +69,7 @@ def t_delete_dir():
     response = client.get(
         API_PREFIX + "/hdfs/delete_directory",
         params={"directory_path": test_hdfs_dir_path},
-        headers=test_headers
+        headers=test_headers,
     )
 
     data = response.json()

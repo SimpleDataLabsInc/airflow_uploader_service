@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
-from . basic_authentication import check_basic_authentication
-from . process_time_header import add_process_time_header
+from .basic_authentication import check_basic_authentication
+from .process_time_header import add_process_time_header
 
 
 def add_middlewares(app: FastAPI):

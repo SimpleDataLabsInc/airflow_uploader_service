@@ -12,7 +12,9 @@ import subprocess
 class HdfsController(object):
     @staticmethod
     def run_cmd(bash_command: list[str]) -> object:
-        result = subprocess.run(bash_command, shell=True, text=True, capture_output=True)
+        result = subprocess.run(
+            bash_command, shell=True, text=True, capture_output=True
+        )
         return result
 
     @staticmethod
@@ -34,23 +36,27 @@ class HdfsController(object):
 
             # now, we will move run hdfs command
             temp_file_path = os.path.join(temp_dir, file.filename)
-            result = HdfsController.run_cmd(f"hdfs dfs -copyFromLocal {temp_file_path} {destination_dir}")
+            result = HdfsController.run_cmd(
+                f"hdfs dfs -copyFromLocal {temp_file_path} {destination_dir}"
+            )
             if result.returncode == 0:
                 print(f"Command executed successfully: {result}")
 
                 return JSONResponse(
-                    status_code=200, content={
+                    status_code=200,
+                    content={
                         "message": f"file '{file.filename}' copied to hdfs location '{destination_dir}' successfully!",
-                        "details": result.stdout
-                    }
+                        "details": result.stdout,
+                    },
                 )
             else:
                 print(f"Command failed with return code: \n{result}\n")
                 return JSONResponse(
-                    status_code=500, content={
+                    status_code=500,
+                    content={
                         "message": f"Error copying '{file.filename}' to hdfs location {destination_dir}",
-                        "details:": result.stderr
-                    }
+                        "details:": result.stderr,
+                    },
                 )
 
     @staticmethod
@@ -65,36 +71,42 @@ class HdfsController(object):
         if result.returncode == 0:
             print(f"file {file_path} has been removed successfully\n {result}\n")
             return JSONResponse(
-                status_code=200, content={
+                status_code=200,
+                content={
                     "message": f"file '{file_path}' has been removed successfully: {result}",
-                    "details": result.stdout
-                }
+                    "details": result.stdout,
+                },
             )
         else:
             print(f"Error deleting hdfs file \n{result}\n")
             return JSONResponse(
-                status_code=500, content={
+                status_code=500,
+                content={
                     "message": f"Error deleting hdfs file {file_path}",
-                    "details:": result.stderr
-                }
+                    "details:": result.stderr,
+                },
             )
 
     @staticmethod
     def delete_directory(directory_path: str):
         result = HdfsController.run_cmd(f"hdfs dfs -rm -r {directory_path}")
         if result.returncode == 0:
-            print(f"Directory {directory_path} has been recursively removed\n {result}\n")
+            print(
+                f"Directory {directory_path} has been recursively removed\n {result}\n"
+            )
             return JSONResponse(
-                status_code=200, content={
+                status_code=200,
+                content={
                     "message": f"Directory '{directory_path}' has been recursively removed",
-                    "details": result.stdout
-                }
+                    "details": result.stdout,
+                },
             )
         else:
             print(f"Error deleting hdfs directory \n{result}\n")
             return JSONResponse(
-                status_code=500, content={
+                status_code=500,
+                content={
                     "message": f"Error deleting hdfs directory {directory_path}",
-                    "details:": result.stderr
-                }
+                    "details:": result.stderr,
+                },
             )

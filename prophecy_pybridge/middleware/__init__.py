@@ -1,1 +1,1 @@
-from . add_middlewares import add_middlewares
+from .add_middlewares import add_middlewares

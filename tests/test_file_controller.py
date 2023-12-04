@@ -30,7 +30,7 @@ def test_upload_file():
             API_PREFIX + "/file/upload",
             params={"destination_dir": output_dir},
             files={"file": (file_name, file_content)},
-            headers=test_headers
+            headers=test_headers,
         )
         # print(response)
         assert response.status_code == 200
@@ -49,7 +49,7 @@ def test_delete_file():
     response = client.get(
         API_PREFIX + "/file/delete",
         params={"file_path": output_file_path},
-        headers=test_headers
+        headers=test_headers,
     )
     assert not os.path.exists(output_file_path)
 
@@ -67,7 +67,7 @@ def test_delete_directory():
     response = client.get(
         API_PREFIX + "/file/delete_directory",
         params={"directory_path": output_test_dir},
-        headers=test_headers
+        headers=test_headers,
     )
     assert not os.path.exists(output_test_dir)
     print(response)
