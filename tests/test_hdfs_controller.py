@@ -24,8 +24,8 @@ test_hdfs_file_path = output_hdfs_dir + "/" + file_name
 
 def test_hdfs_all():
     if "ashishpatel" in os.environ["HOME"]:
-        # t_upload_file()
-        # t_delete_file()
+        t_upload_file()
+        t_delete_file()
         t_delete_dir()
     else:
         print("SKIP: hadoop tests.")
