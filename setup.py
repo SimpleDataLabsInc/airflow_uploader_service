@@ -24,7 +24,9 @@ setup(
     name='prophecy_pybridge',
     packages=find_packages(include=['prophecy_pybridge', 'prophecy_pybridge.*']),
     test_suite='tests',
-    extras_require=test_requirements,
+    extras_require={
+        "test": test_requirements
+    },
     url='https://github.com/pateash/prophecy_pybridge',
     zip_safe=False,
 )
