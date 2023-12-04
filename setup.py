@@ -7,14 +7,15 @@ from setuptools import setup, find_packages
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
-requirements = [ "fastapi", "python-multipart", "uvicorn[standard]"]
+requirements = ["fastapi", "python-multipart", "uvicorn[standard]"]
 
-test_requirements = ['pytest>=3', "httpx"]
+test_requirements = ['pytest', "httpx", "black"]
 
 setup(
     author="Ashish Patel",
+    version='1.0.0-dev0',
     author_email='ashish@prophecy.io',
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     description="Python Boilerplate contains all the boilerplate you need to create a Python package.",
     install_requires=requirements,
     long_description=readme,
@@ -23,8 +24,7 @@ setup(
     name='prophecy_pybridge',
     packages=find_packages(include=['prophecy_pybridge', 'prophecy_pybridge.*']),
     test_suite='tests',
-    tests_require=test_requirements,
+    extras_require=test_requirements,
     url='https://github.com/pateash/prophecy_pybridge',
-    version='0.1.0',
     zip_safe=False,
 )
