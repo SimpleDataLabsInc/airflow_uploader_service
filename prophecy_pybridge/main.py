@@ -1,7 +1,8 @@
 """Main module."""
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
+from prophecy_pybridge.middleware import add_middlewares
 from prophecy_pybridge.routers import routers
 
 app = FastAPI(
@@ -10,6 +11,9 @@ app = FastAPI(
     version="1.0.0",
 )
 API_PREFIX = "/api/v1"
+
+# Add all middlewares
+add_middlewares(app)
 
 # Include all the routers
 for route in routers:

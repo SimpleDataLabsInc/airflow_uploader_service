@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from prophecy_pybridge.controller.file_controller import FileController
 
