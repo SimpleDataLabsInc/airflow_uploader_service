@@ -2,11 +2,10 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 import base64
 
-BASIC_AUTH = {
+BASIC_AUTH_CREDS = {
     "username": "prophecy",
     "password": "Prophecy@123"
 }
-
 
 def check_permission(method, api, auth):
     # The following paths are always allowed:
@@ -17,7 +16,7 @@ def check_permission(method, api, auth):
     if scheme != 'Basic':
         return False
     username, password = base64.b64decode(data).decode().split(':', 1)
-    if username == BASIC_AUTH['username'] and  password == BASIC_AUTH['password']:
+    if username == BASIC_AUTH_CREDS['username'] and  password == BASIC_AUTH_CREDS['password']:
         return True
 
 
