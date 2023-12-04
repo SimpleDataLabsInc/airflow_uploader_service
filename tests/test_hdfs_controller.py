@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 from prophecy_pybridge.controller.hdfs_controller import HdfsController
 
 from prophecy_pybridge.main import app, API_PREFIX
+from . import test_headers
 
 client = TestClient(app)
 current_file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -38,6 +39,7 @@ def t_upload_file():
             API_PREFIX + "/hdfs/upload",
             params={"destination_dir": output_hdfs_dir},
             files={"file": (file_name, file_content)},
+            headers=test_headers
         )
         data = response.json()
         print(json.dumps(data, indent=2))
@@ -51,6 +53,7 @@ def t_delete_file():
     response = client.get(
         API_PREFIX + "/hdfs/delete",
         params={"file_path": test_hdfs_file_path},
+        headers=test_headers
     )
     data = response.json()
     print(json.dumps(data, indent=2))
@@ -65,6 +68,7 @@ def t_delete_dir():
     response = client.get(
         API_PREFIX + "/hdfs/delete_directory",
         params={"directory_path": test_hdfs_dir_path},
+        headers=test_headers
     )
 
     data = response.json()
