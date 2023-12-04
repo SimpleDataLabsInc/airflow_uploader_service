@@ -1,16 +1,14 @@
 """Main module."""
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 
 from prophecy_pybridge.middleware import add_middlewares
 from prophecy_pybridge.routers import routers
 
-API_VERSION = '1.0.0-dev0'
-
 app = FastAPI(
     title="Prophecy PyBridge",
     description="Prophecy Bridge API",
-    version=API_VERSION,
+    version="1.0.0",
 )
 API_PREFIX = "/api/v1"
 
