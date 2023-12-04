@@ -2,8 +2,8 @@
 
 from fastapi import FastAPI
 
-from prophecy_pybridge.middleware import add_middlewares
-from prophecy_pybridge.routers import routers
+from prophecy_pybridge.middleware import middlewares
+from prophecy_pybridge.router import routers
 
 app = FastAPI(
     title="Prophecy PyBridge",
@@ -12,9 +12,10 @@ app = FastAPI(
 )
 API_PREFIX = "/api/v1"
 
-# Add all middlewares
-add_middlewares(app)
+# middlewares
+for middleware in middlewares:
+    app.middleware("http")(middleware)
 
-# Include all the routers
+# routers
 for route in routers:
     app.include_router(router=route, prefix=API_PREFIX)
