@@ -56,7 +56,7 @@ lint:
 	black --check prophecy_pybridge tests ## check style
 
 test: ## run tests quickly with the default Python
-	pytest
+	pytest -v
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source prophecy_pybridge -m pytest
