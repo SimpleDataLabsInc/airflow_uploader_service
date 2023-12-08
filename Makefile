@@ -36,7 +36,7 @@ clean-build: ## remove build artifacts
 	find . -name '*.egg' -exec rm -f {} +
 
 dev:
-	uvicorn prophecy_pybridge.main:app --reload
+	python3 -m uvicorn prophecy_pybridge.main:app --host 0.0.0.0 --reload
 
 clean-pyc: ## remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
