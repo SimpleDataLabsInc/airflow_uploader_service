@@ -19,13 +19,13 @@ setup(
     install_requires=requirements,
     long_description=readme,
     include_package_data=True,
-    keywords='prophecy_pybridge',
-    name='prophecy_pybridge',
-    packages=find_packages(include=['prophecy_pybridge', 'prophecy_pybridge.*']),
+    keywords='airflow_uploader_service',
+    name='airflow_uploader_service',
+    packages=find_packages(include=['airflow_uploader_service', 'airflow_uploader_service.*']),
     test_suite='tests',
     extras_require={
         "dev": test_requirements
     },
-    url='https://github.com/pateash/prophecy_pybridge',
+    url='https://github.com/pateash/airflow_uploader_service',
     zip_safe=False,
 )

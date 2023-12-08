@@ -36,7 +36,7 @@ clean-build: ## remove build artifacts
 	find . -name '*.egg' -exec rm -f {} +
 
 dev:
-	python3 -m uvicorn prophecy_pybridge.main:app --host 0.0.0.0 --reload
+	python3 -m uvicorn airflow_uploader_service.main:app --host 0.0.0.0 --reload
 
 clean-pyc: ## remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
@@ -50,16 +50,16 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint-fix:
-	black prophecy_pybridge tests
+	black airflow_uploader_service tests
 
 lint:
-	black --check prophecy_pybridge tests ## check style
+	black --check airflow_uploader_service tests ## check style
 
 test: ## run tests quickly with the default Python
-	pytest -v
+	python -m pytest -v
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source prophecy_pybridge -m pytest
+	coverage run --source airflow_uploader_service -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
@@ -73,4 +73,7 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	python -m pip install '.'
+
+dev-deps: ## install dev dependencies
+	python -m pip install -e '.[dev]'

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-"""Tests for `prophecy_pybridge` package."""
+"""Tests for `airflow_uploader_service` package."""
 
 from fastapi.testclient import TestClient
 
-from prophecy_pybridge.main import app, API_PREFIX
+from airflow_uploader_service.main import app, API_PREFIX
 from . import test_headers
 
 client = TestClient(app)

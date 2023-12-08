@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from prophecy_pybridge.controller.hdfs_controller import HdfsController
+from airflow_uploader_service.controller.hdfs_controller import HdfsController
 
 router = APIRouter(prefix="/hdfs")
 from fastapi import File, UploadFile

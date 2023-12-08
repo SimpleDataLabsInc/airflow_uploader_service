@@ -2,12 +2,12 @@
 
 from fastapi import FastAPI
 
-from prophecy_pybridge.middleware import middlewares
-from prophecy_pybridge.router import routers
+from airflow_uploader_service.middleware import middlewares
+from airflow_uploader_service.router import routers
 
 app = FastAPI(
-    title="Prophecy PyBridge",
-    description="Prophecy Bridge API",
+    title="Airflow Uploader Service",
+    description="Prophecy Airflow Uploader Service API",
     version="1.0.0",
 )
 API_PREFIX = "/api/v1"

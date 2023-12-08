@@ -1,5 +1,16 @@
 # airflow_uploader_service
-[![Build CI](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml/badge.svg)](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml)
+[![Build CI](https://github.com/SimpleDataLabsInc/airflow_uploader_service/actions/workflows/build.yml/badge.svg)](https://github.com/SimpleDataLabsInc/airflow_uploader_service/actions/workflows/build.yml)
+
+
+* Installation in  prod
+```shell
+make install
+```
+
+* Install Dev/test dependencies (including prod once)
+```shell
+make dev-deps
+```
 
 * Run with reload option (dev)
 

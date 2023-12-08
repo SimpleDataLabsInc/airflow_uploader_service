@@ -7,7 +7,7 @@ from typing import List
 
 from fastapi import UploadFile, File
 from fastapi.responses import JSONResponse
-from prophecy_pybridge.controller.file_controller import FileController
+from airflow_uploader_service.controller.file_controller import FileController
 import subprocess
 
 
