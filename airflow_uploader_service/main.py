@@ -2,8 +2,8 @@
 
 from fastapi import FastAPI
 
-from prophecy_pybridge.middleware import middlewares
-from prophecy_pybridge.router import routers
+from airflow_uploader_service.middleware import middlewares
+from airflow_uploader_service.router import routers
 
 app = FastAPI(
     title="Prophecy PyBridge",

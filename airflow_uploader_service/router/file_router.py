@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from prophecy_pybridge.controller.file_controller import FileController
+from airflow_uploader_service.controller.file_controller import FileController
 
 from fastapi import File, UploadFile
 from fastapi.responses import JSONResponse

@@ -1,5 +1,5 @@
 # airflow_uploader_service
-[![Build CI](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml/badge.svg)](https://github.com/SimpleDataLabsInc/prophecy_pybridge/actions/workflows/build.yml)
+[![Build CI](https://github.com/SimpleDataLabsInc/airflow_uploader_service/actions/workflows/build.yml/badge.svg)](https://github.com/SimpleDataLabsInc/airflow_uploader_service/actions/workflows/build.yml)
 
 * Run with reload option (dev)
 

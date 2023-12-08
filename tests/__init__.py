@@ -1,7 +1,7 @@
-"""Unit test package for prophecy_pybridge."""
+"""Unit test package for airflow_uploader_service."""
 from base64 import b64encode
 
-from prophecy_pybridge.middleware.basic_authentication import BASIC_AUTH_CREDS
+from airflow_uploader_service.middleware.basic_authentication import BASIC_AUTH_CREDS
 
 test_credentials = f"{BASIC_AUTH_CREDS['username']}:{BASIC_AUTH_CREDS['password']}"
 test_headers = {
