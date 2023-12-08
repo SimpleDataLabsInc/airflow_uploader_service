@@ -56,7 +56,7 @@ lint:
 	black --check airflow_uploader_service tests ## check style
 
 test: ## run tests quickly with the default Python
-	pytest -v
+	python -m pytest -v
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source airflow_uploader_service -m pytest
@@ -73,4 +73,7 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	python -m pip install '.'
+
+dev-deps: ## install dev dependencies
+	python -m pip install -e '.[dev]'
